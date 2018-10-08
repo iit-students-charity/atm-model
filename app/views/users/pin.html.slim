@@ -1,0 +1,4 @@
+h1 Input your PIN:
+= simple_form_for(:user, url: pin_check_user_path, method: :post) do |f|
+  = f.input :pin, label: false, required: true, placeholder: false
+  = f.submit 'Submit'

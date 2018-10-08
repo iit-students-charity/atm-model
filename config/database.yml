@@ -1,0 +1,19 @@
+development:
+  adapter:  postgresql
+  host:     localhost
+  encoding: unicode
+  database: atm_development
+  pool:     5
+  timeout:  5000
+  username: alexandr
+  password:
+
+test:
+  adapter:  postgresql
+  host:     localhost
+  encoding: unicode
+  database: atm_test
+  pool:     5
+  timeout:  5000
+  username: alexandr
+  password:

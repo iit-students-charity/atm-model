@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  enum status: [:valid, :blocked]
+  enum status: [:active, :blocked]
 
   validates :card_number, presence: true
   validates :pin,         presence: true

@@ -11,17 +11,18 @@ class UsersController < ApplicationController
 
   def pin_check
     if @user.pin.to_s == params[:user][:pin]
+      @user.correct_pin
       redirect_to controller: :users, action: :main_screen, id: @user.id
     else
-      @user.update_attributes(attempts: @user.attempts + 1)
-      redirect_to controller: :users, action: :pin, invalid_pin: true
+      @user.incorrect_pin
+      redirect_to controller: :users, action: :pin, incorrect_pin: true
     end
   end
 
   def card_number_check
-    card_user = User.find_by(card_number: params[:user][:card_number])
-    if card_user
-      redirect_to controller: :users, action: :pin, id: card_user.id
+    @user = User.find_by(card_number: params[:user][:card_number])
+    if @user
+      redirect_to controller: :users, action: :pin, id: @user.id
     else
       redirect_to controller: :users, action: :insert_card, invalid_card: true
     end

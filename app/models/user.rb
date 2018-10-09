@@ -32,4 +32,8 @@ class User < ApplicationRecord
     reset_attempts
     update_attributes(status: :active)
   end
+
+  def attempts_left
+    3 - attempts
+  end
 end

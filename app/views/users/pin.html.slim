@@ -1,8 +1,12 @@
-- if params[:invalid_pin]
-  h1 Incorrect PIN! Please try again. Attempts remains:
-  = 3 - @user.attempts
-- else
-  h1 Input your PIN:
-= simple_form_for(:user, url: pin_check_user_path, method: :post) do |f|
-  = f.input :pin, label: false, required: true, input_html: { type: 'password', value: nil }
-  = f.submit 'Submit'
+- if @user.blocked?
+  h1 Your card is blocked
+- else if params[:incorrect_pin]
+  h1
+    | incorrect PIN! Please try again. Attempts left:&nbsp
+    = @user.attempts_left
+  - else
+    h1 Input PIN:
+  = simple_form_for(:user, url: pin_check_user_path, method: :post) do |f|
+    = f.input :pin, label: false, required: true, input_html: { type: 'password', value: nil }
+    = f.submit 'Submit'
+= button_to "Back", insert_card_path, method: :get

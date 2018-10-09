@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :user, except: :insert_card
+  # before_action :user, except: :insert_card
   # before_action :check_pin, only: :main_screen
 
   def insert_card
@@ -7,6 +7,8 @@ class UsersController < ApplicationController
   end
 
   def pin
+    binding.pry
+
     render :pin
   end
 
@@ -15,7 +17,12 @@ class UsersController < ApplicationController
   end
 
   def card_number_check
-    
+    user = User.find_by(card_number: params[:user][:card_number])
+    if user
+      redirect_to controller: :users, action: :pin, id: user.id
+    else
+      redirect_to controller: :users, action: :pin, invalid_card: true
+    end
   end
 
   def main_screen

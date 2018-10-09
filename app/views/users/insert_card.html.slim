@@ -1,1 +1,7 @@
-h1 insert card
+- if params[:invalid_card]
+  h1 Your card is invalid, insert your card:
+- else
+  h1 Insert your card:
+= simple_form_for(:user, url: card_number_check_path, method: :post) do |f|
+  = f.input :card_number, label: false, required: true, placeholder: 'Card number'
+  = f.submit 'Insert'

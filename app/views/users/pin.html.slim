@@ -1,4 +1,8 @@
-h1 Input your PIN:
+- if params[:invalid_pin]
+  h1 Incorrect PIN! Please try again. Attempts remains:
+  = 3 - @user.attempts
+- else
+  h1 Input your PIN:
 = simple_form_for(:user, url: pin_check_user_path, method: :post) do |f|
-  = f.input :pin, label: false, required: true, placeholder: false
+  = f.input :pin, label: false, required: true, input_html: { type: 'password', value: nil }
   = f.submit 'Submit'

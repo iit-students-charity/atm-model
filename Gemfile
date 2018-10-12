@@ -15,6 +15,9 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'slim'
 gem 'simple_form'
 gem 'pry'
+gem 'bootstrap'
+gem 'jquery-rails'
+gem 'mini_racer'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

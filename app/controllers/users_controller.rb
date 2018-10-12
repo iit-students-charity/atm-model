@@ -49,21 +49,30 @@ class UsersController < ApplicationController
   end
 
   def update
-    binding.pry
     case params[:subaction]
     when 'take_cash'
       if user.balance >= user_params[:balance].to_i
         user.update(balance: user.balance - user_params[:balance].to_i)
-        redirect_to main_screen_user_path, notice: "Take your money"
+        message = { notice: "Take your money" }
       else
-        redirect_to main_screen_user_path, alert: "Not enogh money"
+        message = { alert: "Not enogh money" }
       end
     when 'put_cash'
       user.update(balance: user.balance + user_params[:balance].to_i)
-      redirect_to main_screen_user_path, notice: "Thanks"
+      message = { notice: "Thanks" }
     when 'transaction'
-
+      @payee = User.find_by(card_number: user_params[:card_number])
+      if @payee && user.balance >= user_params[:balance].to_i
+        binding.pry
+        @payee.update(balance: @payee.balance + user_params[:balance].to_i)
+        user.update(balance: user.balance - user_params[:balance].to_i)
+        message = { notice: "Transaction done" }
+      else
+        message = { alert: "Not enogh money" } if user.balance <= user_params[:balance].to_i
+        message = { alert: "Wrong card number" } unless @payee
+      end
     end
+    redirect_to main_screen_user_path, message
   end
 
   private

@@ -9,4 +9,4 @@
   = simple_form_for(:user, url: pin_check_user_path, method: :post) do |f|
     = f.input :pin, label: false, required: true, input_html: { type: 'password', value: nil }
     = f.submit 'Submit'
-= button_to "Back", insert_card_path, method: :get
+= button_to "Return card", insert_card_path, method: :get

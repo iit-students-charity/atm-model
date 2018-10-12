@@ -49,7 +49,19 @@ class UsersController < ApplicationController
   end
 
   def update
+    case params[:subaction]
+    when 'take_cash'
+      if @user.balance >= user_params[:balance].to_i
+        @user.update(balance: balance - user_params[:balance])
+      else
+        flash[:alert] = "Not enogh money"
+        redirect_to main_screen_user_path, alert: "Not enogh money"
+      end
+    when 'put_cash'
 
+    when 'transaction'
+
+    end
   end
 
   private
@@ -59,6 +71,10 @@ class UsersController < ApplicationController
   end
 
   def user_params
+    params.require(:user).permit(:balance, :card_number)
+  end
 
+  def previous_action
+    Rails.application.routes.recognize_path(request.referrer)[:action]
   end
 end

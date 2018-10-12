@@ -1,1 +1,9 @@
-h1 take cash
+h1 how many?
+= button_to "10", user_path, method: :put, params: { user: { balance: 10 }, subaction: :take_cash }
+= button_to "20", user_path, method: :put, params: {  user: { balance: 20 }, subaction: :take_cash }
+= button_to "50", user_path, method: :put, params: {  user: { balance: 50 }, subaction: :take_cash }
+= button_to "100", user_path, method: :put, params: {  user: { balance: 100 }, subaction: :take_cash }
+| Or input other sum:
+= simple_form_for(:user, url: user_path, method: :put) do |f|
+  = f.input :balance, label: false, input_html: { value: nil }
+  = f.submit 'Submit', subaction: :take_cash

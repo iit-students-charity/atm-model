@@ -10,11 +10,11 @@ class UsersController < ApplicationController
   end
 
   def pin_check
-    if @user.pin.to_s == params[:user][:pin]
-      @user.correct_pin
-      redirect_to controller: :users, action: :main_screen, id: @user.id
+    if user.pin.to_s == params[:user][:pin]
+      user.correct_pin
+      redirect_to controller: :users, action: :main_screen, id: user.id
     else
-      @user.incorrect_pin
+      user.incorrect_pin
       redirect_to controller: :users, action: :pin, incorrect_pin: true
     end
   end
@@ -49,16 +49,18 @@ class UsersController < ApplicationController
   end
 
   def update
+    binding.pry
     case params[:subaction]
     when 'take_cash'
-      if @user.balance >= user_params[:balance].to_i
-        @user.update(balance: balance - user_params[:balance])
+      if user.balance >= user_params[:balance].to_i
+        user.update(balance: user.balance - user_params[:balance].to_i)
+        redirect_to main_screen_user_path, notice: "Take your money"
       else
-        flash[:alert] = "Not enogh money"
         redirect_to main_screen_user_path, alert: "Not enogh money"
       end
     when 'put_cash'
-
+      user.update(balance: user.balance + user_params[:balance].to_i)
+      redirect_to main_screen_user_path, notice: "Thanks"
     when 'transaction'
 
     end

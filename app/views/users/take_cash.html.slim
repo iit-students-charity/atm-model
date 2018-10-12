@@ -6,4 +6,6 @@ h1 how many?
 | Or input other sum:
 = simple_form_for(:user, url: user_path, method: :put) do |f|
   = f.input :balance, label: false, input_html: { value: nil }
-  = f.submit 'Submit', subaction: :take_cash
+  = hidden_field_tag(:subaction, 'take_cash')
+  = f.submit 'Submit'
+= button_to "Back", main_screen_user_path, method: :get

@@ -1,6 +1,6 @@
 h1 put cash
 h1 how many?
-= simple_form_for(:user, url: user_path, method: :put) do |f|
+= simple_form_for(:user, url: update_put_cash_user_path, method: :post) do |f|
   = f.input :balance, label: false, input_html: { value: nil }
   = hidden_field_tag(:subaction, 'put_cash')
   = f.submit 'Submit'

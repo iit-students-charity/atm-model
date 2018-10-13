@@ -4,8 +4,10 @@ class UsersController < ApplicationController
                  put_cash: 'put_cash_user_path',
                  transaction: 'transaction_user_path' }
 
-  before_action :user, only: [:pin, :pin_check, :main_screen, :show, :take_cash, :put_cash, :transaction, :update]
+  before_action :user, only: [:pin, :main_screen]
   before_action :unauthorize_user, only: [:show, :take_cash, :put_cash, :transaction]
+  # before_action :check_user, only: [:main_screen, :show, :take_cash, :put_cash, :transaction, :update]
+
 
   def insert_card
     render :insert_card
@@ -57,32 +59,29 @@ class UsersController < ApplicationController
     render :transaction
   end
 
-  def update
-    case params[:subaction]
-    when 'take_cash'
-      if enough_money?
-        user.update(balance: user.balance - user_params[:balance].to_i)
-        message = { notice: "Take your money" }
-      else
-        message = { alert: "Not enogh money" }
-      end
-    when 'put_cash'
-      user.update(balance: user.balance + user_params[:balance].to_i)
-      message = { notice: "Thanks" }
-    when 'transaction'
-      @payee = User.find_by(card_number: user_params[:card_number])
-      if @payee && user.balance >= user_params[:balance].to_i
-        @payee.update(balance: @payee.balance + user_params[:balance].to_i)
-        user.update(balance: user.balance - user_params[:balance].to_i)
-        message = { notice: "Transaction done" }
-      else
-        message = { alert: "Not enogh money" } unless enough_money?
-        message = { alert: "Wrong card number" } unless @payee
-      end
+  def update_take_cash
+    if enough_money?
+      user.update(balance: user.balance - user_params[:balance].to_i)
+      redirect_to main_screen_user_path, notice: "Take your money"
     else
-      message = 'Sorry, cannot connect to bank'
+      redirect_to main_screen_user_path, alert: "Not enogh money"
     end
-    redirect_to main_screen_user_path, message
+  end
+
+  def update_put_cash
+    user.update(balance: user.balance + user_params[:balance].to_i)
+    redirect_to main_screen_user_path, notice: "Thanks"
+  end
+
+  def update_transaction
+    if payee && enough_money?
+      payee.update(balance: @payee.balance + user_params[:balance].to_i)
+      user.update(balance: user.balance - user_params[:balance].to_i)
+      redirect_to main_screen_user_path, notice: "Transaction done"
+    else
+      redirect_to main_screen_user_path, alert: "Not enogh money" unless enough_money?
+      redirect_to main_screen_user_path, alert: "Wrong card number" unless payee
+    end
   end
 
   private
@@ -91,12 +90,21 @@ class UsersController < ApplicationController
     @user ||= User.find(params[:id])
   end
 
-  def user_params
-    params.require(:user).permit(:balance, :card_number)
+  def payee
+    @payee = User.find_by(card_number: user_params[:card_number])
   end
+
+  # def check_user
+  #   binding.pry
+  #   redirect_to pin_user_path, next_action: action_name unless user.authorized?
+  # end
 
   def unauthorize_user
     user.unperformed!
+  end
+
+  def user_params
+    params.require(:user).permit(:balance, :card_number)
   end
 
   def enough_money?

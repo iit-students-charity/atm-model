@@ -1,5 +1,8 @@
 {
   "name": "atm",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "bootstrap": "^4.1.3",
+    "gentelella": "^1.4.0"
+  }
 }

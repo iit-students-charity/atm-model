@@ -14,7 +14,8 @@
 //= require activestorage
 //= require turbolinks
 //= require jquery3
-//= require popper
 //= require bootstrap
+//= require gentelella
+//= require gentelella-custom
 //= require_tree .
 

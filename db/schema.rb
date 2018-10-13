@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_08_122528) do
+ActiveRecord::Schema.define(version: 2018_10_12_201755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2018_10_08_122528) do
     t.integer "balance"
     t.integer "attempts"
     t.integer "status", default: 0
+    t.integer "authorization", default: 0
   end
 
 end

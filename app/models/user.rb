@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   enum status: [:active, :blocked]
+  enum authorization: [:unperformed, :performed]
 
   validates :card_number, presence: true
   validates :pin,         presence: true
@@ -35,5 +36,9 @@ class User < ApplicationRecord
 
   def attempts_left
     3 - attempts
+  end
+
+  def authorized?
+    authorization == 'performed'
   end
 end

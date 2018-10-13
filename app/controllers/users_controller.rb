@@ -5,6 +5,7 @@ class UsersController < ApplicationController
                  transaction: 'transaction_user_path' }
 
   before_action :user, only: [:pin, :pin_check, :main_screen, :show, :take_cash, :put_cash, :transaction, :update]
+  before_action :unauthorize_user, only: [:show, :take_cash, :put_cash, :transaction]
 
   def insert_card
     render :insert_card
@@ -41,7 +42,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    user.update(authorization: :unperformed)
     render :show
   end
 
@@ -58,7 +58,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    user.unperformed!
     case params[:subaction]
     when 'take_cash'
       if enough_money?
@@ -94,6 +93,10 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:balance, :card_number)
+  end
+
+  def unauthorize_user
+    user.unperformed!
   end
 
   def enough_money?

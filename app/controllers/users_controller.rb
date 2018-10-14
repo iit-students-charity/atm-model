@@ -1,13 +1,12 @@
 class UsersController < ApplicationController
-  MAIN_PATHS = { check_cash: 'user_path',
+  MAIN_PATHS = { show: 'user_path',
                  take_cash: 'take_cash_user_path',
                  put_cash: 'put_cash_user_path',
                  transaction: 'transaction_user_path' }
 
   before_action :user, only: [:pin, :main_screen]
+  before_action :check_user, only: [:show, :take_cash, :put_cash, :transaction]
   before_action :unauthorize_user, only: [:show, :take_cash, :put_cash, :transaction]
-  # before_action :check_user, only: [:main_screen, :show, :take_cash, :put_cash, :transaction, :update]
-
 
   def insert_card
     render :insert_card
@@ -21,21 +20,21 @@ class UsersController < ApplicationController
   def pin_check
     if user.pin.to_s == params[:user][:pin]
       user.correct_pin
-      user.update(authorization: :performed)
+      user.performed!
       path = MAIN_PATHS[params[:next_action].to_sym] || 'main_screen_user_path'
       redirect_to eval(path), id: user.id
     else
       user.incorrect_pin
-      redirect_to pin_user_path, incorrect_pin: true, next_action: params[:next_action]
+      redirect_to pin_user_path(user, incorrect_pin: "true", next_action: params[:next_action])
     end
   end
 
   def card_number_check
     @user = User.find_by(card_number: params[:user][:card_number])
     if @user
-      redirect_to controller: :users, action: :pin, id: @user.id
+      redirect_to pin_user_path(@user)
     else
-      redirect_to controller: :users, action: :insert_card, invalid_card: true
+      redirect_to insert_card_path invalid_card: "true"
     end
   end
 
@@ -94,10 +93,9 @@ class UsersController < ApplicationController
     @payee = User.find_by(card_number: user_params[:card_number])
   end
 
-  # def check_user
-  #   binding.pry
-  #   redirect_to pin_user_path, next_action: action_name unless user.authorized?
-  # end
+  def check_user
+    redirect_to pin_user_path(user, next_action: action_name) unless user.authorized?
+  end
 
   def unauthorize_user
     user.unperformed!

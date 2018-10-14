@@ -5,7 +5,7 @@ h1 main
   = button_to "Put cash", put_cash_user_path, method: :get
   = button_to "Transaction", transaction_user_path, method: :get
 - else
-  = button_to "Check cash", pin_user_path, method: :get, params: { next_action: :check_cash }
+  = button_to "Check cash", pin_user_path, method: :get, params: { next_action: :show }
   = button_to "Take cash", pin_user_path, method: :get, params: { next_action: :take_cash }
   = button_to "Put cash", pin_user_path, method: :get, params: { next_action: :put_cash }
   = button_to "Transaction", pin_user_path, method: :get, params: { next_action: :transaction }

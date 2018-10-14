@@ -1,13 +1,29 @@
-- if @user.blocked?
-  h1 Your card is blocked
-- else if params[:incorrect_pin]
-  h1
-    | incorrect PIN! Please try again. Attempts left:&nbsp
-    = @user.attempts_left
-  - else
-    h1 Input PIN:
-  = simple_form_for(:user, url: pin_check_user_path, method: :post) do |f|
-    = f.input :pin, label: false, required: true, input_html: { type: 'password', value: nil }
-    = hidden_field_tag(:next_action, @next_action)
-    = f.submit 'Submit'
-= button_to "Return card", insert_card_path, method: :get
+.row
+  .col-md-12.col-sm-12.col-xs-12
+    .x_panel
+      - if @user.blocked?
+        .x_title
+          h1 Authorization failed! This card is blocked. Please contact the bank
+      - else if params[:incorrect_pin]
+        .x_title
+          h1
+            | Authorization failed! Incorrect PIN. Attempts left:&nbsp
+            = @user.attempts_left
+        - else
+          .x_title
+            h1 Authorization:
+        .x_content
+          = simple_form_for(:user, url: pin_check_user_path, method: :post, html: { class: 'form-horizontal form-label-left' }, defaults: { input_html: { class: 'form-control' } }) do |f|
+            .item.form-group
+              label.control-label.col-md-3.col-sm-3.col-xs-12
+                | PIN:
+              .col-md-6.col-sm-6.col-xs-12
+                = f.input :pin, label: false, required: true, input_html: { type: 'password', value: nil }
+                = hidden_field_tag(:next_action, @next_action)
+                .ln_solid
+                .form-group.text-center
+                  = f.submit 'Submit', class: 'btn btn-success btn-lg'
+                .clearfix
+          .form-group.text-center
+            = button_to "Return card", insert_card_path, method: :get, class: 'btn btn-info btn-lg'
+          .clearfix

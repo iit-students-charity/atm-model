@@ -1,12 +1,41 @@
-h1 main
-- if @user.authorized?
-  = button_to "Check cash", user_path, method: :get
-  = button_to "Take cash", take_cash_user_path, method: :get
-  = button_to "Put cash", put_cash_user_path, method: :get
-  = button_to "Transaction", transaction_user_path, method: :get
-- else
-  = button_to "Check cash", pin_user_path, method: :get, params: { next_action: :show }
-  = button_to "Take cash", pin_user_path, method: :get, params: { next_action: :take_cash }
-  = button_to "Put cash", pin_user_path, method: :get, params: { next_action: :put_cash }
-  = button_to "Transaction", pin_user_path, method: :get, params: { next_action: :transaction }
-= button_to "Return card", insert_card_path, method: :get
+.row
+  .col-md-12.col-sm-12.col-xs-12
+    .x_panel
+      .x_title
+        h1 Main menu
+      .x_content
+        .form-horizontal.form-label-left
+          - if @user.authorized?
+            .item.form-group
+              .col-md-6.col-sm-6.col-xs-12
+                = button_to "Check cash", user_path, method: :get, class: 'btn btn-success btn-lg'
+            .item.form-group
+              .col-md-6.col-sm-6.col-xs-12
+                = button_to "Take cash", take_cash_user_path, method: :get, class: 'btn btn-success btn-lg'
+            .item.form-group
+              .col-md-6.col-sm-6.col-xs-12
+                = button_to "Put cash", put_cash_user_path, method: :get, class: 'btn btn-success btn-lg'
+            .item.form-group
+              .col-md-6.col-sm-6.col-xs-12
+                = button_to "Transaction", transaction_user_path, method: :get, class: 'btn btn-success btn-lg'
+          - else
+            .item.form-group
+              .col-md-6.col-sm-6.col-xs-12
+                = button_to "Check cash", pin_user_path, method: :get, params: { next_action: :show }, class: 'btn btn-success btn-lg'
+            .item.form-group
+              .col-md-6.col-sm-6.col-xs-12
+                = button_to "Take cash", pin_user_path, method: :get, params: { next_action: :take_cash }, class: 'btn btn-success btn-lg'
+            .item.form-group
+              .col-md-6.col-sm-6.col-xs-12
+                = button_to "Put cash", pin_user_path, method: :get, params: { next_action: :put_cash }, class: 'btn btn-success btn-lg'
+            .item.form-group
+              .col-md-6.col-sm-6.col-xs-12
+                = button_to "Transaction", pin_user_path, method: :get, params: { next_action: :transaction }, class: 'btn btn-success btn-lg'
+          .item.form-group
+            .ln_solid
+            .col-md-6.col-sm-6.col-xs-12
+              = button_to "Return card", insert_card_path, method: :get, class: 'btn btn-info btn-lg'
+
+
+
+

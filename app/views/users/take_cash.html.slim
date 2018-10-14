@@ -1,11 +1,32 @@
-h1 how many?
-= button_to "10", update_take_cash_user_path, method: :post, params: { user: { balance: 10 }, subaction: :take_cash }
-= button_to "20", update_take_cash_user_path, method: :post, params: { user: { balance: 20 }, subaction: :take_cash }
-= button_to "50", update_take_cash_user_path, method: :post, params: { user: { balance: 50 }, subaction: :take_cash }
-= button_to "100", update_take_cash_user_path, method: :post, params: { user: { balance: 100 }, subaction: :take_cash }
-| Or input other sum:
-= simple_form_for(:user, url: update_take_cash_user_path, method: :post) do |f|
-  = f.input :balance, label: false, input_html: { value: nil }
-  = hidden_field_tag(:subaction, 'take_cash')
-  = f.submit 'Submit'
-= button_to "Back", main_screen_user_path, method: :get
+.row
+  .col-md-12.col-sm-12.col-xs-12
+    .x_panel
+      .x_title
+        h1 Select amount:
+      .x_content
+        table align='center'
+          tr
+            td
+              = button_to "10", update_take_cash_user_path, method: :post, params: { user: { balance: 10 }, subaction: :take_cash }, class: 'btn btn-success btn-lg'
+            td
+              = button_to "20", update_take_cash_user_path, method: :post, params: { user: { balance: 20 }, subaction: :take_cash }, class: 'btn btn-success btn-lg'
+            td
+              = button_to "50", update_take_cash_user_path, method: :post, params: { user: { balance: 50 }, subaction: :take_cash }, class: 'btn btn-success btn-lg'
+            td
+              = button_to "100", update_take_cash_user_path, method: :post, params: { user: { balance: 100 }, subaction: :take_cash }, class: 'btn btn-success btn-lg'
+        .x_title
+          h1 Or input by yourself:
+        = simple_form_for(:user, url: update_take_cash_user_path, method: :post, html: { class: 'form-horizontal form-label-left' }) do |f|
+          .item.form-group
+            label.control-label.col-md-3.col-sm-3.col-xs-12
+              | Amount:
+            .col-md-6.col-sm-6.col-xs-12
+              = f.input :balance, label: false, input_html: { value: nil, class: 'form-control' }
+              = hidden_field_tag(:subaction, 'take_cash')
+              .ln_solid
+              .form-group.text-center
+                = f.submit 'Submit', class: 'btn btn-success btn-lg'
+              .clearfix
+        .form-group.text-center
+          = button_to "Back", main_screen_user_path, method: :get, class: 'btn btn-info btn-lg'
+        .clearfix

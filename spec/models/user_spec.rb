@@ -99,11 +99,31 @@ describe User do
         user.card_number = nil
         expect(user).to be_invalid
       end
+
+      it 'should be numeric' do
+        user.card_number = "one_million"
+        expect(user).to be_invalid
+      end
+
+      it 'should contains 16 numbers' do
+        user.card_number = 1111
+        expect(user).to be_invalid
+      end
     end
 
     context 'pin' do
       it 'should present' do
         user.pin = nil
+        expect(user).to be_invalid
+      end
+
+      it 'should be numeric' do
+        user.pin = "one_hundred"
+        expect(user).to be_invalid
+      end
+
+      it 'should contains 4 numbers' do
+        user.pin = 11112222
         expect(user).to be_invalid
       end
     end
@@ -113,11 +133,21 @@ describe User do
         user.attempts = nil
         expect(user).to be_invalid
       end
+
+      it 'should be positive' do
+        user.attempts = -1
+        expect(user).to be_invalid
+      end
     end
 
     context 'balance' do
       it 'should present' do
         user.balance = nil
+        expect(user).to be_invalid
+      end
+
+      it 'should be positive' do
+        user.balance = -1
         expect(user).to be_invalid
       end
     end

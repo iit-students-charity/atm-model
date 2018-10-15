@@ -7,13 +7,13 @@
         table align='center'
           tr
             td
-              = button_to "10", update_take_cash_user_path, method: :post, params: { user: { balance: 10 }, subaction: :take_cash }, class: 'btn btn-success btn-lg'
+              = button_to "10", update_take_cash_user_path, method: :post, params: { user: { balance: 10 }, subaction: :take_cash }, class: 'btn-balance btn-success btn-lg'
             td
-              = button_to "20", update_take_cash_user_path, method: :post, params: { user: { balance: 20 }, subaction: :take_cash }, class: 'btn btn-success btn-lg'
+              = button_to "20", update_take_cash_user_path, method: :post, params: { user: { balance: 20 }, subaction: :take_cash }, class: 'btn-balance btn-success btn-lg'
             td
-              = button_to "50", update_take_cash_user_path, method: :post, params: { user: { balance: 50 }, subaction: :take_cash }, class: 'btn btn-success btn-lg'
+              = button_to "50", update_take_cash_user_path, method: :post, params: { user: { balance: 50 }, subaction: :take_cash }, class: 'btn-balance btn-success btn-lg'
             td
-              = button_to "100", update_take_cash_user_path, method: :post, params: { user: { balance: 100 }, subaction: :take_cash }, class: 'btn btn-success btn-lg'
+              = button_to "100", update_take_cash_user_path, method: :post, params: { user: { balance: 100 }, subaction: :take_cash }, class: 'btn-balance btn-success btn-lg'
         .x_title
           h1 Or input by yourself:
         = simple_form_for(:user, url: update_take_cash_user_path, method: :post, html: { class: 'form-horizontal form-label-left' }) do |f|

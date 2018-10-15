@@ -4,7 +4,7 @@
       .x_title
         h1 Main menu
       .x_content
-        .form-horizontal.form-label-left
+        .form-horizontal.text-center
           - if @user.authorized?
             .item.form-group
               .col-md-6.col-sm-6.col-xs-12
@@ -35,7 +35,3 @@
             .ln_solid
             .col-md-6.col-sm-6.col-xs-12
               = button_to "Return card", insert_card_path, method: :get, class: 'btn btn-info btn-lg'
-
-
-
-

@@ -5,6 +5,7 @@
         h1
           | Your balance:&nbsp
           = @user.balance
+          | &nbsp$
       .x_content
         .form-group.text-center
           = button_to "Back", main_screen_user_path, method: :get, class: 'btn btn-info btn-lg'

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'users#insert_card'
+
   scope :users do
     get 'insert_card', to: 'users#insert_card'
     post 'card_number_check', to: 'users#card_number_check'

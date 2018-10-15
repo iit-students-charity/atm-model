@@ -1,24 +1,5 @@
-# README
+# ATM model
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+**It is a model of ATM, created as a lab work in BSUIR**
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+It uses PostgreSQL database and [Gentelella Alela](https://github.com/puikinsh/gentelella "Gentelella GitHub") design (that's why GitHub displays this repository as JavaScript).

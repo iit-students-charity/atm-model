@@ -61,25 +61,25 @@ class UsersController < ApplicationController
   def update_take_cash
     if enough_money?
       user.update(balance: user.balance - user_params[:balance].to_i)
-      redirect_to main_screen_user_path, notice: "Take your money"
+      redirect_to main_screen_user_path, notice: "Pleace, ake your money"
     else
-      redirect_to main_screen_user_path, alert: "Not enogh money"
+      redirect_to main_screen_user_path, alert: "Error. Not enogh money"
     end
   end
 
   def update_put_cash
     user.update(balance: user.balance + user_params[:balance].to_i)
-    redirect_to main_screen_user_path, notice: "Thanks"
+    redirect_to main_screen_user_path, notice: "Operation was successful"
   end
 
   def update_transaction
     if payee && enough_money?
       payee.update(balance: @payee.balance + user_params[:balance].to_i)
       user.update(balance: user.balance - user_params[:balance].to_i)
-      redirect_to main_screen_user_path, notice: "Transaction done"
+      redirect_to main_screen_user_path, notice: "Transaction was successful"
     else
-      redirect_to main_screen_user_path, alert: "Not enogh money" unless enough_money?
-      redirect_to main_screen_user_path, alert: "Wrong card number" unless payee
+      redirect_to main_screen_user_path, alert: "Error. Not enogh money" unless enough_money?
+      redirect_to main_screen_user_path, alert: "Error. Wrong card number" unless payee
     end
   end
 

@@ -61,7 +61,7 @@ class UsersController < ApplicationController
   def update_take_cash
     if enough_money?
       user.update(balance: user.balance - user_params[:balance].to_i)
-      redirect_to main_screen_user_path, notice: "Pleace, ake your money"
+      redirect_to main_screen_user_path, notice: "Pleace, Take your money"
     else
       redirect_to main_screen_user_path, alert: "Error. Not enogh money"
     end

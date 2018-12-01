@@ -85,10 +85,6 @@ class UsersController < ApplicationController
 
   private
 
-  def user
-    @user ||= User.find(params[:id])
-  end
-
   def payee
     @payee = User.find_by(card_number: user_params[:card_number])
   end

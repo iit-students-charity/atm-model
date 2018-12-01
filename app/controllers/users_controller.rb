@@ -8,10 +8,6 @@ class UsersController < ApplicationController
   before_action :check_user, only: [:show, :take_cash, :put_cash, :transaction]
   before_action :unauthorize_user, only: [:show, :take_cash, :put_cash, :transaction]
 
-  def insert_card
-    render :insert_card
-  end
-
   def pin
     @next_action = params[:next_action]
     render :pin
@@ -34,7 +30,7 @@ class UsersController < ApplicationController
     if @user
       redirect_to pin_user_path(@user)
     else
-      redirect_to insert_card_path invalid_card: "true"
+      redirect_to root_path invalid_card: "true"
     end
   end
 

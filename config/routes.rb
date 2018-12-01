@@ -1,12 +1,11 @@
 Rails.application.routes.draw do
-  root 'users#insert_card'
+  root 'users#index'
 
   scope :users do
-    get 'insert_card', to: 'users#insert_card'
     post 'card_number_check', to: 'users#card_number_check'
   end
 
-  resources :users, only: :show do
+  resources :users do
     member do
       get 'pin'
       get 'main_screen'

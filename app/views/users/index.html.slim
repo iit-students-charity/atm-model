@@ -1,0 +1,21 @@
+.main-content-container.container-fluid
+  .row.no-gutters.h-100
+    .col-md-4.col-md-offset-4.my-auto.auth-form
+      .x_panel
+        .x_title
+          h5.auth-form__title.text-center.mb-4
+            - if params[:invalid_card]
+              | This card is invalid. Insert valid card:
+            - else
+              | Insert your card:
+        .x_content
+          = simple_form_for(:user, url: card_number_check_path, method: :post, html: { class: 'form-horizontal form-label-left' }) do |f|
+            .item.form-group
+              label.control-label.col-md-3.col-sm-3
+                | Card number:
+              .col-md-6.col-sm-6.col-xs-12
+                = f.input :card_number, label: false, required: true, placeholder: 'Card number', input_html: { class: 'form-control' }
+                .ln_solid
+                .form-group.text-center
+                  = f.submit 'Insert', class: 'btn-lg btn-success'
+                .clearfix

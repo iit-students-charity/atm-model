@@ -1,17 +1,18 @@
-.row
-  .col-md-12.col-sm-12.col-xs-12
-    .x_panel
-      - if @user.blocked?
+.main-content-container.container-fluid
+  .row.no-gutters.h-100
+    .col-md-4.col-md-offset-4.my-auto.auth-form
+      .x_panel
         .x_title
-          h1 Authorization failed! This card is blocked. Please contact the bank
-      - else if params[:incorrect_pin]
-        .x_title
-          h1
-            | Authorization failed! Incorrect PIN. Attempts left:&nbsp
-            = @user.attempts_left
-        - else
-          .x_title
-            h1 Authorization:
+          - if @user.blocked?
+            h5.auth-form__title.text-center.mb-4
+              | Authorization failed! This card is blocked. Please contact the bank
+          - else if params[:incorrect_pin]
+            h5.auth-form__title.text-center.mb-4
+              | Authorization failed! Incorrect PIN. Attempts left:&nbsp
+              = @user.attempts_left
+            - else
+              h5.auth-form__title.text-center.mb-4
+                | Authorization:
         .x_content
           = simple_form_for(:user, url: pin_check_user_path, method: :post, html: { class: 'form-horizontal form-label-left' }, defaults: { input_html: { class: 'form-control' } }) do |f|
             .item.form-group
@@ -22,8 +23,7 @@
                 = hidden_field_tag(:next_action, @next_action)
                 .ln_solid
                 .form-group.text-center
-                  = f.submit 'Submit', class: 'btn btn-success btn-lg'
+                  = f.submit 'Submit', class: 'btn-success btn-lg'
                 .clearfix
       .form-group.text-center
-        = button_to "Return card", insert_card_path, method: :get, class: 'btn btn-info btn-lg'
-      .clearfix
+        = button_to "Return card", root_path, method: :get, class: 'btn-info btn-lg'

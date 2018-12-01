@@ -1,37 +1,30 @@
-.row
-  .col-md-12.col-sm-12.col-xs-12
-    .x_panel
-      .x_title
-        h1 Main menu
-      .x_content
-        .form-horizontal.text-center
-          - if @user.authorized?
+.main-content-container.container-fluid
+  .row.no-gutters.h-100
+    .col-md-4.col-md-offset-4.my-auto.auth-form
+      .x_panel.text-center
+        .x_title
+          h5.auth-form__title.text-center.mb-4
+          | Main menu
+        .x_content
+          .form-horizontal.text-center
+            - if @user.authorized?
+              .item.form-group
+                = button_to "Check cash", user_path, method: :get, class: 'btn btn-secondary btn-lg btn-block'
+              .item.form-group
+                = button_to "Take cash", take_cash_user_path, method: :get, class: 'btn btn-secondary btn-lg btn-block'
+              .item.form-group
+                = button_to "Put cash", put_cash_user_path, method: :get, class: 'btn btn-secondary btn-lg btn-block'
+              .item.form-group
+                = button_to "Transaction", transaction_user_path, method: :get, class: 'btn btn-secondary btn-lg btn-block'
+            - else
+              .item.form-group
+                = button_to "Check cash", pin_user_path, method: :get, params: { next_action: :show }, class: 'btn btn-secondary btn-lg btn-block'
+              .item.form-group
+                = button_to "Take cash", pin_user_path, method: :get, params: { next_action: :take_cash }, class: 'btn btn-secondary btn-lg btn-block'
+              .item.form-group
+                = button_to "Put cash", pin_user_path, method: :get, params: { next_action: :put_cash }, class: 'btn btn-secondary btn-lg btn-block'
+              .item.form-group
+                = button_to "Transaction", pin_user_path, method: :get, params: { next_action: :transaction }, class: 'btn btn-secondary btn-lg btn-block'
             .item.form-group
-              .col-md-6.col-sm-6.col-xs-12
-                = button_to "Check cash", user_path, method: :get, class: 'btn btn-success btn-lg'
-            .item.form-group
-              .col-md-6.col-sm-6.col-xs-12
-                = button_to "Take cash", take_cash_user_path, method: :get, class: 'btn btn-success btn-lg'
-            .item.form-group
-              .col-md-6.col-sm-6.col-xs-12
-                = button_to "Put cash", put_cash_user_path, method: :get, class: 'btn btn-success btn-lg'
-            .item.form-group
-              .col-md-6.col-sm-6.col-xs-12
-                = button_to "Transaction", transaction_user_path, method: :get, class: 'btn btn-success btn-lg'
-          - else
-            .item.form-group
-              .col-md-6.col-sm-6.col-xs-12
-                = button_to "Check cash", pin_user_path, method: :get, params: { next_action: :show }, class: 'btn btn-success btn-lg'
-            .item.form-group
-              .col-md-6.col-sm-6.col-xs-12
-                = button_to "Take cash", pin_user_path, method: :get, params: { next_action: :take_cash }, class: 'btn btn-success btn-lg'
-            .item.form-group
-              .col-md-6.col-sm-6.col-xs-12
-                = button_to "Put cash", pin_user_path, method: :get, params: { next_action: :put_cash }, class: 'btn btn-success btn-lg'
-            .item.form-group
-              .col-md-6.col-sm-6.col-xs-12
-                = button_to "Transaction", pin_user_path, method: :get, params: { next_action: :transaction }, class: 'btn btn-success btn-lg'
-          .item.form-group
-            .ln_solid
-            .col-md-6.col-sm-6.col-xs-12
-              = button_to "Return card", insert_card_path, method: :get, class: 'btn btn-info btn-lg'
+              .ln_solid
+              = button_to "Return card", root_path, method: :get, class: 'btn btn-secondary btn-lg btn-block btn-info'

@@ -1,8 +1,5 @@
 class UsersController < ApplicationController
-  MAIN_PATHS = { show: 'user_path',
-                 take_cash: 'take_cash_user_path',
-                 put_cash: 'put_cash_user_path',
-                 transaction: 'transaction_user_path' }
+  include UsersHelper
 
   before_action :user, only: [:pin, :main_screen]
   before_action :check_user, only: [:show, :take_cash, :put_cash, :transaction]
@@ -14,7 +11,7 @@ class UsersController < ApplicationController
   end
 
   def pin_check
-    if user.pin.to_s == params[:user][:pin]
+    if correct_pin?
       user.correct_pin
       user.performed!
       path = MAIN_PATHS[params[:next_action].to_sym] || 'main_screen_user_path'
@@ -32,26 +29,6 @@ class UsersController < ApplicationController
     else
       redirect_to root_path invalid_card: "true"
     end
-  end
-
-  def main_screen
-    render :main_screen
-  end
-
-  def show
-    render :show
-  end
-
-  def take_cash
-    render :take_cash
-  end
-
-  def put_cash
-    render :put_cash
-  end
-
-  def transaction
-    render :transaction
   end
 
   def update_take_cash

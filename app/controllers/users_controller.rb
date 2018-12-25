@@ -1,16 +1,9 @@
 class UsersController < ApplicationController
-  MAIN_PATHS = { show: 'user_path',
-                 take_cash: 'take_cash_user_path',
-                 put_cash: 'put_cash_user_path',
-                 transaction: 'transaction_user_path' }
+  include UsersHelper
 
   before_action :user, only: [:pin, :main_screen]
   before_action :check_user, only: [:show, :take_cash, :put_cash, :transaction]
   before_action :unauthorize_user, only: [:show, :take_cash, :put_cash, :transaction]
-
-  def insert_card
-    render :insert_card
-  end
 
   def pin
     @next_action = params[:next_action]
@@ -18,7 +11,7 @@ class UsersController < ApplicationController
   end
 
   def pin_check
-    if user.pin.to_s == params[:user][:pin]
+    if correct_pin?
       user.correct_pin
       user.performed!
       path = MAIN_PATHS[params[:next_action].to_sym] || 'main_screen_user_path'
@@ -34,28 +27,8 @@ class UsersController < ApplicationController
     if @user
       redirect_to pin_user_path(@user)
     else
-      redirect_to insert_card_path invalid_card: "true"
+      redirect_to root_path invalid_card: "true"
     end
-  end
-
-  def main_screen
-    render :main_screen
-  end
-
-  def show
-    render :show
-  end
-
-  def take_cash
-    render :take_cash
-  end
-
-  def put_cash
-    render :put_cash
-  end
-
-  def transaction
-    render :transaction
   end
 
   def update_take_cash
@@ -84,10 +57,6 @@ class UsersController < ApplicationController
   end
 
   private
-
-  def user
-    @user ||= User.find(params[:id])
-  end
 
   def payee
     @payee = User.find_by(card_number: user_params[:card_number])

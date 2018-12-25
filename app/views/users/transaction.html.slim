@@ -1,25 +1,27 @@
-.row
-  .col-md-12.col-sm-12.col-xs-12
-    .x_panel
-      .x_title
-        h1 Transfer money to another card
-      .x_content
-        = simple_form_for(:user, url: update_transaction_user_path, method: :post, html: { class: 'form-horizontal form-label-left' }, defaults: { input_html: { class: 'form-control' } }) do |f|
-          .item.form-group
-            label.control-label.col-md-3.col-sm-3.col-xs-12
-              | Payee card number:
-            .col-md-6.col-sm-6.col-xs-12
-              = f.input :card_number, label: false, input_html: {value: nil}
-          .item.form-group
-            label.control-label.col-md-3.col-sm-3.col-xs-12
-              | Amount:
-            .col-md-6.col-sm-6.col-xs-12
-              = f.input :balance, label: false, input_html: { value: nil }
-              = hidden_field_tag(:subaction, 'transaction')
-              .ln_solid
-              .form-group.text-center
-                = f.submit 'Submit', class: 'btn btn-success btn-lg'
-              .clearfix
-        .form-group.text-center
-          = button_to "Back", main_screen_user_path, method: :get, class: 'btn btn-info btn-lg'
-        .clearfix
+.main-content-container.container-fluid
+  .row.no-gutters.h-100
+    .col-md-4.col-md-offset-4.my-auto.auth-form
+      .x_panel
+        .x_title
+          h4.auth-form__title.text-center.mb-4
+            | Transfer money to another card
+        .x_content
+          = simple_form_for(:user, url: update_transaction_user_path, method: :post, html: { class: 'form-horizontal form-label-left' }, defaults: { input_html: { class: 'form-control' } }) do |f|
+            .item.form-group
+              label.control-label.col-md-3.col-sm-3.col-xs-12
+                | Payee card number:
+              .col-md-6.col-sm-6.col-xs-12
+                = f.input :card_number, label: false, input_html: {value: nil}
+            .item.form-group
+              label.control-label.col-md-3.col-sm-3.col-xs-12
+                | Amount:
+              .col-md-6.col-sm-6.col-xs-12
+                = f.input :balance, label: false, input_html: { value: nil }
+                = hidden_field_tag(:subaction, 'transaction')
+                .ln_solid
+                .form-group.text-center
+                  = f.submit 'Submit', class: 'btn-success btn-sm'
+                .clearfix
+          .form-group.text-center
+            = button_to "Back", main_screen_user_path, method: :get, class: 'btn btn-secondary btn-lg btn-block btn-info'
+          .clearfix

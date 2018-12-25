@@ -1,8 +1,8 @@
 # ATM model
 
-**It is a model of ATM, created as a lab work in BSUIR**
+**It is a model of ATM, created as a lab work in BSUIR and refactored by** [**Tanyuxa**](https://github.com/TanyaAkulich "Tanyoha's GitHub") :)
 
-It uses PostgreSQL database and [Gentelella Alela](https://github.com/puikinsh/gentelella "Gentelella GitHub") design (that's why GitHub displays this repository as JavaScript).  
+It uses PostgreSQL database and [Gentelella Alela](https://github.com/puikinsh/gentelella "Gentelella GitHub") design (that's why GitHub displays this repository as JavaScript).
 It's just a model, but you can check it [here](https://atm-model.herokuapp.com/ "Heroku deploy") ¯\\\_(ツ)_/¯ (may take some time to load)
 
 Sample data:
